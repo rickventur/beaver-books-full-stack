@@ -11,9 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('views'));
 
 // ── Rotas ───────────────────────────────────────────────────────────────────
-app.use('/leads', require('./routes/leads'));
-app.use('/admin', require('./routes/admin'));
-
+app.use('/leads', require('./leads'));
+app.use('/admin', require('./admin'));
 // ── Health check ────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
   res.json({ status: 'ok', projeto: 'Beaver Books Backend', versao: '1.0.0' });
