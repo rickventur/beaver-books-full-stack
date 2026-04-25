@@ -1,60 +1,37 @@
-function toggleAuthorBlock(val){
-  const block=document.getElementById('author-block');
-  if(val==='publicar'||val==='orcamento'){
-    block.classList.add('active');
-  } else {
-    block.classList.remove('active');
-  }
-}
-
-function selectRadio(label){
-  const group=label.closest('.radio-group');
-  group.querySelectorAll('.radio-option').forEach(o=>o.classList.remove('selected'));
-  label.classList.add('selected');
-  label.querySelector('input').checked=true;
-}
-
-function toggleFaq(btn){
-  const ans=btn.nextElementSibling;
-  const icon=btn.querySelector('.faq-icon'); 
-  const isOpen=ans.classList.contains('open');
-  // close all
-  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.classList.remove('open'));
-  if(!isOpen){ans.classList.add('open');icon.classList.add('open')}
-}
-
-function showFileName(input){
-  const div=document.getElementById('file-name');
-  div.textContent=input.files[0]?'✓ '+input.files[0].name:'';
-}
-
 async function handleSubmit(e){
+  e.preventDefault();
+
   const lgpd=document.getElementById('lgpd');
   if(!lgpd.checked){
     lgpd.focus();
     alert('Por favor, aceite a política de privacidade para continuar.');
     return;
   }
-  // simulate submit
-const btn = document.querySelector('.btn-cta');
+
+  const btn = document.querySelector('.btn-cta');
   btn.textContent = 'Enviando…';
   btn.disabled = true;
 
+  const fileInput = document.getElementById('file-input');
+  const arquivo = fileInput.files[0] ? fileInput.files[0].name : null;
+
   const dados = {
-    nome:      document.querySelector('input[placeholder*="chamado"]').value,
-    email:     document.querySelector('input[type="email"]').value,
-    whatsapp:  document.querySelector('input[type="tel"]').value,
-    cidade:    document.querySelector('input[placeholder*="SP"]').value,
-    objetivo:  document.getElementById('objetivo').value,
-    genero:    document.querySelector('#author-block select')?.value,
-    finalizado: document.querySelector('input[name="finalizado"]:checked')?.value,
-    paginas:   document.querySelector('input[type="number"]')?.value,
-    mensagem:  document.querySelector('textarea').value,
+    nome:       document.getElementById('nome').value,
+    email:      document.getElementById('email').value,
+    whatsapp:   document.getElementById('whatsapp').value,
+    cidade:     document.getElementById('cidade').value,
+    objetivo:   document.getElementById('objetivo').value,
+    genero:     document.getElementById('genero')?.value || null,
+    finalizado: document.querySelector('input[name="finalizado"]:checked')?.value || null,
+    paginas:    document.getElementById('paginas')?.value || null,
+    obj_livro:  document.getElementById('obj_livro')?.value || null,
+    prazo:      document.getElementById('prazo')?.value || null,
+    mensagem:   document.getElementById('mensagem').value,
+    arquivo,
   };
 
   try {
-    const res = await fetch('http://localhost:3000/leads', {
+    const res = await fetch('/leads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dados)
