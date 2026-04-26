@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index-beaver-books.css">
+<title>A Física das Despedidas — Lucia Maia | Beaver Books</title>
+<style>
+  .breadcrumb {
+    background: #111;
+    padding: 0.7rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .breadcrumb-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.04em;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--red); }
+  .breadcrumb-sep { color: rgba(255,255,255,0.18); }
+
+  .livro-hero {
+    background: var(--dark);
+    padding: 4rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .livro-hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(26,26,94,0.2) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .livro-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  .livro-hero-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 4rem;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+  }
+  .livro-cover-wrap {
+    position: sticky;
+    top: 100px;
+  }
+  .livro-cover-3d {
+    display: flex;
+    filter: drop-shadow(-12px 20px 48px rgba(0,0,0,0.7));
+  }
+  .livro-capa {
+    width: 240px;
+    height: 340px;
+    background: linear-gradient(150deg, #0d0d2e 0%, #1a1a5e 100%);
+    border-radius: 2px 10px 10px 2px;
+    padding: 1.8rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+  }
+  .livro-capa::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--red);
+  }
+  .livro-capa-pattern {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 18px,
+      rgba(192,20,60,0.04) 18px, rgba(192,20,60,0.04) 19px
+    );
+  }
+  .livro-capa-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .livro-capa-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: white;
+    line-height: 1.25;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+  .livro-capa-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.5);
+    position: relative;
+    z-index: 1;
+  }
+  .livro-spine {
+    width: 22px;
+    height: 340px;
+    background: linear-gradient(90deg, #060617 0%, #0d0d2e 100%);
+    border-radius: 0;
+  }
+  .livro-cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(192,20,60,0.12);
+    border: 1px solid rgba(192,20,60,0.3);
+    border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-top: 1.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .livro-cover-badge:hover { background: rgba(192,20,60,0.22); }
+
+  .livro-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .livro-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1.5px;
+    background: var(--red);
+  }
+  .livro-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
+  }
+  .livro-autor-linha {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.8rem;
+  }
+  .livro-autor-linha a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(192,20,60,0.4);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .livro-autor-linha a:hover { color: var(--red); border-color: var(--red); }
+  .livro-sinopse {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.1rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.62);
+    margin-bottom: 2.2rem;
+    max-width: 580px;
+  }
+  .livro-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+  }
+  .livro-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.8rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .livro-meta-item { display: flex; flex-direction: column; }
+  .livro-meta-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 0.2rem;
+  }
+  .livro-meta-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .livro-autor-strip {
+    background: #eee9e3;
+    padding: 4rem 2rem;
+  }
+  .livro-autor-strip-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+    align-items: center;
+  }
+  .livro-autor-strip-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    border: 3px solid rgba(192,20,60,0.25);
+    flex-shrink: 0;
+  }
+  .livro-autor-strip-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .livro-autor-strip-info p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+  .livro-autor-strip-info .autor-books { margin-top: 0.4rem; }
+
+  .outros-livros {
+    background: var(--body-bg);
+    padding: 4rem 2rem;
+  }
+  .outros-livros .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .outros-livros-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    .livro-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .livro-cover-wrap { display: flex; flex-direction: column; align-items: center; position: static; }
+    .livro-autor-strip-inner { grid-template-columns: auto 1fr; }
+    .livro-autor-strip-inner .btn { grid-column: 1/-1; }
+    .outros-livros-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .outros-livros-grid { grid-template-columns: 1fr; }
+    .livro-titulo { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index-beaver-books.html" class="logo-wrap">
+      <img src="logo.png" alt="Beaver Books">
+    </a>
+    <nav id="main-nav">
+      <a href="index-beaver-books.html">Início</a>
+      <a href="index-beaver-books.html#sobre">Sobre nós</a>
+      <a href="index-beaver-books.html#autores">Autores</a>
+      <a href="index-beaver-books.html#livros">Livros</a>
+      <a href="index-beaver-books.html#servicos">Serviços editoriais</a>
+      <a href="index-beaver-books.html#blog">Blog</a>
+      <a href="index-beaver-books.html#depoimentos">Depoimentos</a>
+      <a href="contato-beaver-books.html" class="cta">Publicar livro</a>
+    </nav>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index-beaver-books.html">Início</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="index-beaver-books.html#livros">Livros</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>A Física das Despedidas</span>
+  </div>
+</div>
+
+<section class="livro-hero">
+  <div class="livro-hero-grid">
+
+    <div class="livro-cover-wrap">
+      <div class="livro-cover-3d">
+        <div class="livro-spine"></div>
+        <div class="livro-capa">
+          <div class="livro-capa-pattern"></div>
+          <p class="livro-capa-label">Beaver Books</p>
+          <p class="livro-capa-title">A Física das<br>Despedidas</p>
+          <p class="livro-capa-author">Lucia Maia</p>
+        </div>
+      </div>
+      <a href="index-beaver-books.html#categorias" class="livro-cover-badge">
+        ✦ Não-Ficção
+      </a>
+    </div>
+
+    <div class="livro-info">
+      <p class="livro-eyebrow">Não-Ficção</p>
+      <h1 class="livro-titulo">A Física das<br>Despedidas</h1>
+      <p class="livro-autor-linha">por <a href="autor-lucia-maia.html">Lucia Maia</a></p>
+
+      <p class="livro-sinopse">
+        Com rigor intelectual e delicadeza poética, Lucia Maia investiga os mecanismos
+        neurológicos e emocionais das separações — do fim de um amor à morte de alguém amado,
+        da despedida de uma fase de vida à distância que o tempo impõe.
+        Um livro que nos ajuda a entender por que separar-se dói tanto,
+        e o que acontece no cérebro quando dizemos adeus.
+      </p>
+
+      <div class="livro-ctas">
+        <a href="contato-beaver-books.html" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12v9a1 1 0 01-1 1H3a1 1 0 01-1-1V3z"/><path d="M2 3l6 5 6-5"/></svg>
+          Adquirir este livro
+        </a>
+        <a href="autor-lucia-maia.html" class="btn btn-outline">
+          Ver perfil da autora
+        </a>
+      </div>
+
+      <div class="livro-meta-strip">
+        <div class="livro-meta-item">
+          <span class="livro-meta-label">Páginas</span>
+          <span class="livro-meta-value">248</span>
+        </div>
+        <div class="livro-meta-item">
+          <span class="livro-meta-label">Ano</span>
+          <span class="livro-meta-value">2024</span>
+        </div>
+        <div class="livro-meta-item">
+          <span class="livro-meta-label">Gênero</span>
+          <span class="livro-meta-value">
+            <a href="index-beaver-books.html#categorias" style="color:var(--red);text-decoration:none;border-bottom:1px solid rgba(192,20,60,0.3)">Não-Ficção</a>
+          </span>
+        </div>
+        <div class="livro-meta-item">
+          <span class="livro-meta-label">Editora</span>
+          <span class="livro-meta-value">Beaver Books</span>
+        </div>
+        <div class="livro-meta-item">
+          <span class="livro-meta-label">ISBN</span>
+          <span class="livro-meta-value">978-65-87234-03-8</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="livro-autor-strip">
+  <div class="livro-autor-strip-inner">
+    <div class="livro-autor-strip-avatar">L</div>
+    <div class="livro-autor-strip-info">
+      <h3>Lucia Maia</h3>
+      <p class="autor-books">Não-ficção &amp; Ensaio · 3 títulos publicados</p>
+      <p>Doutora em neurociência pela USP e escritora, Lucia Maia une ciência e literatura
+         para explorar as paisagens internas da mente humana. Colunista de ciência e saúde
+         mental, seus livros se tornaram referências para quem busca entender o comportamento
+         humano com profundidade e sensibilidade.</p>
+    </div>
+    <a href="autor-lucia-maia.html" class="btn btn-primary">Ver perfil completo →</a>
+  </div>
+</section>
+
+<section class="outros-livros">
+  <div class="container">
+    <p class="section-label">Catálogo</p>
+    <h2 class="section-title">Você também pode gostar</h2>
+    <div class="outros-livros-grid">
+
+      <div class="book-card" onclick="location='livro-silencio-mares.html'" style="cursor:pointer" role="link" tabindex="0">
+        <div class="book-cover">
+          <div class="book-cover-inner" style="--bg:#1a0a10;--bg2:#3a0d1f">
+            <div class="book-cover-deco"></div>
+            <p class="book-cover-title">O Silêncio das Marés</p>
+            <p class="book-cover-author">ANA COSTA</p>
+          </div>
+        </div>
+        <div class="book-info">
+          <p class="book-genre">Romance</p>
+          <p class="book-title">O Silêncio das Marés</p>
+          <p class="book-author">Ana Costa</p>
+        </div>
+      </div>
+
+      <div class="book-card" onclick="location='livro-territorios-esquecimento.html'" style="cursor:pointer" role="link" tabindex="0">
+        <div class="book-cover">
+          <div class="book-cover-inner" style="--bg:#0a1a15;--bg2:#0d3a28">
+            <div class="book-cover-deco"></div>
+            <p class="book-cover-title">Territórios do Esquecimento</p>
+            <p class="book-cover-author">MARCOS FEITOSA</p>
+          </div>
+        </div>
+        <div class="book-info">
+          <p class="book-genre">Ficção Literária</p>
+          <p class="book-title">Territórios do Esquecimento</p>
+          <p class="book-author">Marcos Feitosa</p>
+        </div>
+      </div>
+
+      <div class="book-card" onclick="location='livro-raizes-amanha.html'" style="cursor:pointer" role="link" tabindex="0">
+        <div class="book-cover">
+          <div class="book-cover-inner" style="--bg:#1a110a;--bg2:#3a1f0d">
+            <div class="book-cover-deco"></div>
+            <p class="book-cover-title">Raízes do Amanhã</p>
+            <p class="book-cover-author">PEDRO LEMOS</p>
+          </div>
+        </div>
+        <div class="book-info">
+          <p class="book-genre">Ensaio</p>
+          <p class="book-title">Raízes do Amanhã</p>
+          <p class="book-author">Pedro Lemos</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="logo.png" alt="Beaver Books">
+      <p>Publicamos histórias que merecem ser contadas. Uma editora comprometida com a literatura brasileira e com os autores que a fazem.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer">📘</a>
+        <a href="#" class="social-link" title="Instagram" target="_blank" rel="noopener noreferrer">📸</a>
+        <a href="#" class="social-link" title="Twitter / X" target="_blank" rel="noopener noreferrer">🐦</a>
+        <a href="#" class="social-link" title="YouTube" target="_blank" rel="noopener noreferrer">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Editora</h4>
+      <ul>
+        <li><a href="index-beaver-books.html#sobre">Sobre nós</a></li>
+        <li><a href="index-beaver-books.html#autores">Nossos autores</a></li>
+        <li><a href="index-beaver-books.html#livros">Catálogo</a></li>
+        <li><a href="index-beaver-books.html#blog">Blog</a></li>
+        <li><a href="mailto:imprensa@beaverbooks.com.br">Imprensa</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="contato-beaver-books.html">Publicar livro</a></li>
+        <li><a href="index-beaver-books.html#servicos">Revisão editorial</a></li>
+        <li><a href="index-beaver-books.html#servicos">Design de capa</a></li>
+        <li><a href="index-beaver-books.html#servicos">E-book</a></li>
+        <li><a href="index-beaver-books.html#servicos">Marketing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@beaverbooks.com.br">contato@beaverbooks.com.br</a></li>
+        <li><a href="tel:+5511300000000">+55 (11) 3000-0000</a></li>
+        <li><a href="https://maps.google.com/?q=São+Paulo,+SP" target="_blank" rel="noopener noreferrer">São Paulo, SP</a></li>
+        <li><a href="mailto:vagas@beaverbooks.com.br?subject=Trabalhe conosco">Trabalhe conosco</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Beaver Books. Todos os direitos reservados.</p>
+    <div style="display:flex;gap:1.5rem">
+      <a href="index-beaver-books.html#sobre">Política de privacidade</a>
+      <a href="index-beaver-books.html#sobre">Termos de uso</a>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleNav() {
+    document.getElementById('main-nav').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

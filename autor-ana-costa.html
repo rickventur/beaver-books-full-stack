@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant:ital,wght@1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index-beaver-books.css">
+<title>Ana Costa — Autora | Beaver Books</title>
+<style>
+  /* ── breadcrumb ── */
+  .breadcrumb {
+    background: #111;
+    padding: 0.7rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .breadcrumb-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.04em;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--red); }
+  .breadcrumb-sep { color: rgba(255,255,255,0.18); }
+
+  /* ── autor hero ── */
+  .autor-hero {
+    background: var(--dark);
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .autor-hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(192,20,60,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .autor-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  .autor-hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── avatar grande ── */
+  .autor-hero-avatar {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a0810 0%, #3a0d1e 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--red);
+    border: 3px solid rgba(192,20,60,0.3);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 8px rgba(192,20,60,0.06);
+  }
+
+  /* ── autor info ── */
+  .autor-hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .autor-hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1.5px;
+    background: var(--red);
+  }
+  .autor-hero-nome {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .autor-hero-especialidade {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.6rem;
+  }
+  .autor-hero-bio {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.6);
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+  .autor-hero-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .autor-stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .autor-stat strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--red);
+    line-height: 1;
+    font-weight: 700;
+  }
+  .autor-stat span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3);
+    margin-top: 0.3rem;
+  }
+
+  /* ── obras publicadas ── */
+  .autor-obras {
+    background: #eee9e3;
+    padding: 5rem 2rem;
+  }
+  .autor-obras-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .autor-obras-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  /* ── livro destaque (card mais rico) ── */
+  .livro-destaque-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.22s, box-shadow 0.22s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .livro-destaque-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.12);
+  }
+  .livro-destaque-capa {
+    aspect-ratio: 3/2;
+    background: linear-gradient(150deg, #1a0810 0%, #3a0d1e 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .livro-destaque-capa::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 18px,
+      rgba(192,20,60,0.05) 18px, rgba(192,20,60,0.05) 19px
+    );
+  }
+  .livro-destaque-capa::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+  .livro-destaque-capa-txt {
+    position: relative;
+    z-index: 1;
+  }
+  .livro-destaque-capa-txt h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: white;
+    line-height: 1.25;
+    margin-bottom: 0.3rem;
+  }
+  .livro-destaque-capa-txt span {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .livro-destaque-body {
+    padding: 1.4rem 1.5rem;
+  }
+  .livro-destaque-body .book-genre {
+    margin-bottom: 0.5rem;
+  }
+  .livro-destaque-body p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .livro-destaque-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--red);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── citação do autor ── */
+  .autor-quote-section {
+    background: var(--dark);
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .autor-quote-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg, transparent, transparent 60px,
+      rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px
+    );
+    pointer-events: none;
+  }
+  .autor-quote-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .autor-quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--red);
+    line-height: 0.6;
+    opacity: 0.5;
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+  .autor-quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 2rem;
+  }
+  .autor-quote-assinatura {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .autor-quote-assinatura span {
+    color: var(--red);
+  }
+
+  /* ── cta publicar ── */
+  .autor-cta {
+    background: var(--body-bg);
+    padding: 4rem 2rem;
+  }
+  .autor-cta-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: rgba(192,20,60,0.06);
+    border: 1px solid rgba(192,20,60,0.2);
+    border-radius: 14px;
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .autor-cta-txt p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    line-height: 1.6;
+  }
+  .autor-cta-txt strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    display: block;
+    color: var(--text);
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 900px) {
+    .autor-hero-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+    .autor-hero-avatar { margin: 0 auto; }
+    .autor-hero-eyebrow { justify-content: center; }
+    .autor-hero-stats { justify-content: center; }
+    .autor-obras-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index-beaver-books.html" class="logo-wrap">
+      <img src="logo.png" alt="Beaver Books">
+    </a>
+    <nav id="main-nav">
+      <a href="index-beaver-books.html">Início</a>
+      <a href="index-beaver-books.html#sobre">Sobre nós</a>
+      <a href="index-beaver-books.html#autores">Autores</a>
+      <a href="index-beaver-books.html#livros">Livros</a>
+      <a href="index-beaver-books.html#servicos">Serviços editoriais</a>
+      <a href="index-beaver-books.html#blog">Blog</a>
+      <a href="index-beaver-books.html#depoimentos">Depoimentos</a>
+      <a href="contato-beaver-books.html" class="cta">Publicar livro</a>
+    </nav>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index-beaver-books.html">Início</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="index-beaver-books.html#autores">Autores</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Ana Costa</span>
+  </div>
+</div>
+
+<!-- HERO DA AUTORA -->
+<section class="autor-hero">
+  <div class="autor-hero-inner">
+
+    <div class="autor-hero-avatar">A</div>
+
+    <div>
+      <p class="autor-hero-eyebrow">Autora Beaver Books</p>
+      <h1 class="autor-hero-nome">Ana Costa</h1>
+      <p class="autor-hero-especialidade">Romance &amp; Ficção Literária</p>
+      <p class="autor-hero-bio">
+        Nascida em Salvador, Ana Costa estreou na literatura com contos publicados em revistas
+        literárias antes de assinar seu primeiro romance pela Beaver Books. Sua escrita é marcada
+        pela musicalidade do português baiano e pela profundidade psicológica de seus personagens.
+        Professora de literatura, vive entre Salvador e São Paulo, onde conduz oficinas de escrita
+        criativa para jovens autores.
+      </p>
+      <div class="autor-hero-stats">
+        <div class="autor-stat">
+          <strong>4</strong>
+          <span>Títulos publicados</span>
+        </div>
+        <div class="autor-stat">
+          <strong>2019</strong>
+          <span>Estreia literária</span>
+        </div>
+        <div class="autor-stat">
+          <strong>12k+</strong>
+          <span>Leitores</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- OBRAS PUBLICADAS -->
+<section class="autor-obras">
+  <div class="autor-obras-inner">
+    <p class="section-label">Biblioteca</p>
+    <h2 class="section-title">Obras publicadas</h2>
+    <div class="autor-obras-grid">
+
+      <a href="livro-silencio-mares.html" class="livro-destaque-card">
+        <div class="livro-destaque-capa">
+          <div class="livro-destaque-capa-txt">
+            <h3>O Silêncio das Marés</h3>
+            <span>Ana Costa · 2024</span>
+          </div>
+        </div>
+        <div class="livro-destaque-body">
+          <p class="book-genre">Romance</p>
+          <p>Uma história de amor que atravessa gerações, contada entre as marés da costa baiana, onde o silêncio fala mais alto que as palavras.</p>
+          <span class="livro-destaque-link">Ler mais →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CITAÇÃO -->
+<section class="autor-quote-section">
+  <div class="autor-quote-inner">
+    <span class="autor-quote-mark">"</span>
+    <p class="autor-quote-text">
+      Escrever é aprender a escutar o silêncio entre as palavras.<br>
+      É ali que mora tudo que realmente importa.
+    </p>
+    <p class="autor-quote-assinatura">— <span>Ana Costa</span>, em entrevista à Beaver Books</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="autor-cta">
+  <div class="autor-cta-inner">
+    <div class="autor-cta-txt">
+      <strong>Você também tem uma história para contar?</strong>
+      <p>Envie seu manuscrito para análise gratuita e descubra como a Beaver Books pode transformar seu texto em livro.</p>
+    </div>
+    <a href="contato-beaver-books.html" class="btn btn-primary">
+      Publicar meu livro →
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="logo.png" alt="Beaver Books">
+      <p>Publicamos histórias que merecem ser contadas. Uma editora comprometida com a literatura brasileira e com os autores que a fazem.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer">📘</a>
+        <a href="#" class="social-link" title="Instagram" target="_blank" rel="noopener noreferrer">📸</a>
+        <a href="#" class="social-link" title="Twitter / X" target="_blank" rel="noopener noreferrer">🐦</a>
+        <a href="#" class="social-link" title="YouTube" target="_blank" rel="noopener noreferrer">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Editora</h4>
+      <ul>
+        <li><a href="index-beaver-books.html#sobre">Sobre nós</a></li>
+        <li><a href="index-beaver-books.html#autores">Nossos autores</a></li>
+        <li><a href="index-beaver-books.html#livros">Catálogo</a></li>
+        <li><a href="index-beaver-books.html#blog">Blog</a></li>
+        <li><a href="mailto:imprensa@beaverbooks.com.br">Imprensa</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="contato-beaver-books.html">Publicar livro</a></li>
+        <li><a href="index-beaver-books.html#servicos">Revisão editorial</a></li>
+        <li><a href="index-beaver-books.html#servicos">Design de capa</a></li>
+        <li><a href="index-beaver-books.html#servicos">E-book</a></li>
+        <li><a href="index-beaver-books.html#servicos">Marketing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@beaverbooks.com.br">contato@beaverbooks.com.br</a></li>
+        <li><a href="tel:+5511300000000">+55 (11) 3000-0000</a></li>
+        <li><a href="https://maps.google.com/?q=São+Paulo,+SP" target="_blank" rel="noopener noreferrer">São Paulo, SP</a></li>
+        <li><a href="mailto:vagas@beaverbooks.com.br?subject=Trabalhe conosco">Trabalhe conosco</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Beaver Books. Todos os direitos reservados.</p>
+    <div style="display:flex;gap:1.5rem">
+      <a href="index-beaver-books.html#sobre">Política de privacidade</a>
+      <a href="index-beaver-books.html#sobre">Termos de uso</a>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleNav() {
+    document.getElementById('main-nav').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
