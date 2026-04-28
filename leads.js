@@ -1,6 +1,6 @@
 const express  = require('express');
 const router   = express.Router();
-const pool     = require('../database');
+const pool     = require('./database');
 const nodemailer = require('nodemailer');
 
 // ── Configuração do e-mail ──────────────────────────────────────────────────
